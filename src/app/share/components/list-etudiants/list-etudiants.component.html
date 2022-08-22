@@ -1,0 +1,93 @@
+<div class="bg-light text-end py-2 shadow-sm " style="background-color: white!important;">
+    &nbsp;<button mat-button (click)="exporter.exportTable('xlsx', {fileName:'Produit'})">Excel</button>
+    &nbsp;<button mat-button (click)="exporter.exportTable('csv', {fileName:'Produit'})">CSV</button>
+    &nbsp;<button mat-button (click)="exporter.exportTable('txt', {fileName:'Produit'})">TEXT</button>
+    &nbsp;&nbsp;
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. peter"/>
+    </mat-form-field>
+</div>
+<div class="container liste mt-2 border border-1 p-3">
+  <div class="row">
+    <div class="search col-md-3">
+      <form [formGroup]="searchGroup">
+        <div class="input-group mb-3">
+          <span class="input-group-text bg-warning">
+            <mat-select formControlName="searchBy" tabIndex="1">
+              <mat-option *ngFor="let option of searchByValue; let i = index" [value]="option">
+                {{searchByOptions[i]}}
+              </mat-option>
+            </mat-select>
+          </span>
+          <input class="form-control me-2" type="search" formControlName="searchValue" (keyup)="onSearchEtudiant()" placeholder="Ex. peter" aria-label="Search">
+        </div>
+    </form>
+    </div>
+    <div class="options text-end col-md-8">
+        <form [formGroup]="orderOptionGroup">
+          <mat-form-field appearance="standard">
+            <mat-label>Trier par</mat-label>
+            <mat-select formControlName="order" (selectionChange)="onOrderChange()">
+              <mat-option *ngFor="let order of orderOptions; let i = index" [value]="order">
+                {{orderAttr[i]}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>&nbsp;
+          <mat-form-field appearance="legacy">
+            <mat-label>Ordre</mat-label>
+            <mat-select formControlName="orderBy" (selectionChange)="onOrderChange()">
+              <mat-option *ngFor="let option of trierOptions; let i=index" [value]="option">
+                {{valueAttrTrier[i]}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+    </div>  
+  </div>
+  <div class="wrapper">
+      <table mat-table matTableExporter [dataSource]="dataSource" #exporter="matTableExporter" matSort [hiddenColumns]="[0]" class="shadow-sm mat-elevation-z8 w-100 my-5">
+          <caption>Liste des étudiants</caption>
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>N°</th>
+            <td mat-cell *matCellDef="let i = index"> {{i+1}}</td>
+          </ng-container> 
+        
+          <ng-container matColumnDef="nom">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom</th>
+            <td mat-cell *matCellDef="let element"> {{element.nomEtudiant}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="prenom">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Prenom </th>
+            <td mat-cell *matCellDef="let element"> {{element.prenomEtudiant}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="naissance">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date de naissance </th>
+            <td mat-cell *matCellDef="let element"> {{element.dateNaissanceEtudiant | date:'Né le dd/MM/yyyy'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="promotion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Promotion </th>
+            <td mat-cell *matCellDef="let element"> {{element.degre.classDegre}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="filiere">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Filière </th>
+              <td mat-cell *matCellDef="let element"> {{element.degre.filiere.nomFiliere}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="creation_date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Date de création </th>
+              <td mat-cell *matCellDef="let element"> {{element.dateEnregistrement | date:'dd/MM/yyyy à HH:mm'}} </td>
+          </ng-container>
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index" (click)="onShowEtudiant(dataSource.data[i])"></tr>
+  
+        </table>
+  
+        <mat-paginator [pageSizeOptions]="[10, 5, 2, 20]" showFirstLastButtons="true"></mat-paginator>    
+  </div>
+</div>

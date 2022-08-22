@@ -1,0 +1,35 @@
+<div class="container row justify-content-center m-auto py-5 my-md-3 border border-1" style="background-color: white;">
+    <div class="py-5 text-center col-lg-6">
+        <h2>Ajouter une filière</h2>
+        <p class="lead">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse, beatae vero fuga natus dolores harum, veritatis, expedita fugiat in vel dolorum ipsum recusandae repellat porro quis ipsam voluptates temporibus molestiae.
+        </p>
+    </div>
+    <form [formGroup]="filiereGroup" (ngSubmit)="onAddFiliere()">
+        <mat-form-field appearance="outline" class="offset-md-2 offset-lg-3 col-12 col-md-8 col-lg-6 d-block mb-3">
+            <mat-label>Nom de la filière</mat-label>
+            <input type="text" matInput id="firstName" formControlName="nomFiliere" placeholder="" value="" required>   
+            
+            <mat-error *ngIf="filiereGroup.get('nomFiliere')?.hasError('required')">
+                Le nom de la filière est <strong>obligatoire</strong>
+            </mat-error>
+            <mat-error *ngIf="filiereGroup.get('nomFiliere')?.hasError('minlength')">
+                Le nom de la filière ne peut avoir <strong>moins de 3 caractères</strong>
+            </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="offset-md-2 offset-lg-3 col-12 col-md-8 col-lg-6 d-block mb-3" appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+            <mat-error *ngIf="filiereGroup.get('description')?.hasError('required')">
+                La description de la filière est <strong>obligatoire</strong>
+            </mat-error>
+            <mat-error *ngIf="filiereGroup.get('description')?.hasError('minlength')">
+                La description de la filière ne peut avoir <strong>moins de 5 caractères</strong>
+            </mat-error>
+        </mat-form-field>
+        <button class="offset-md-2 offset-lg-3 btn btn-warning col-12 col-md-8 col-lg-6 d-block py-2 mb-3"
+                [disabled]="filiereGroup.invalid">Enregistrer la filière</button>
+    </form>
+
+</div>

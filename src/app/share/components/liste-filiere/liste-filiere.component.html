@@ -1,0 +1,40 @@
+<div class="bg-light text-end py-2 shadow-sm" style="background-color: white!important;">
+    <!-- Filieres -->
+</div>
+<div class="container liste my-3 border border-1 p-3 shadow-sm wrapper" style="background-color: white;">
+    <span class="h5">Liste des filières</span>
+    <table class="table table-hover table-responsivex border border-1 mt-2">
+        <thead>
+            <tr>
+                <th>Nom de la filiere</th>
+                <th>Description</th>
+                <th>Date de creation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let filiere of filieres" (click)="onShowFiliere(filiere)">
+                <td>{{filiere.nomFiliere}}</td>
+                <td>{{filiere.description}}</td>
+                <td>{{filiere.dateCreation | date:'dd/MM/yyyy'}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- <mat-selection-list [multiple]="false">
+        <div class="mat-list-option-cover">
+            <mat-list-option *ngFor="let task of this.tasks | async" (click)="onOpenDialog(task)">
+                <div class="d-flex justify-content-between">
+                    <span class="task-data">
+                        {{task.dueDate | date:'dd-MM-yyyy'}}
+                    </span>
+                    <span class="task-data">
+                        {{task.type}}
+                    </span>
+                </div>
+                <span class="task-title">
+                    {{task.title.substring(0,40)| titlecase}}
+                </span>
+            </mat-list-option>
+        </div>
+    </mat-selection-list> -->
+</div>

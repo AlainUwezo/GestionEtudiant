@@ -1,0 +1,10 @@
+.liste{
+    background-color: white;
+}
+
+.wrapper{
+    overflow-x: scroll;
+}
+.wrapperTBody{
+    overflow-y: scroll;
+}

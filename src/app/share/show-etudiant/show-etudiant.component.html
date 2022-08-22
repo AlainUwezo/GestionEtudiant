@@ -1,0 +1,88 @@
+<div class="row justify-content-center m-auto col-12 col-lg-6 py-5 my-md-3 border border-1" style="background-color: white;">
+    <div class="header">    
+        <h4>Modifier l'étudiant</h4>
+        <span class="float-end">
+            <button mat-icon-button class="rounded-5" color="warn" (click)="onDeleteEtudiant()">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </span>
+    </div>
+    <form class="needs-validation" novalidate [formGroup]="etudiantForm" (ngSubmit)="onUpdateEtudiant()">
+        <div class="row g-3">
+            <mat-form-field class="col-sm-6" appearance="outline">
+                <mat-label class="form-label">Nom</mat-label>
+                <input type="text" matInput formControlName="nomEtudiant"
+                        required>
+                <mat-error *ngIf="etudiantForm.get('nomEtudiant')?.hasError('required')">
+                    Le nom de l'étudiant est <strong>obligatoire</strong>
+                </mat-error>
+                <mat-error *ngIf="etudiantForm.get('nomEtudiant')?.hasError('minlength')">
+                    Le nom de l'étudiant ne peut avoir <strong>moins de 3 caractères</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-6" appearance="outline">
+                <mat-label class="form-label">Prenom</mat-label>
+                <input type="text" matInput formControlName="prenomEtudiant"
+                    placeholder="" value="" required>
+                
+                <mat-error *ngIf="etudiantForm.get('prenomEtudiant')?.hasError('required')">
+                    Le prenom de l'étudiant est <strong>obligatoire</strong>
+                </mat-error>
+                <mat-error *ngIf="etudiantForm.get('prenomEtudiant')?.hasError('minlength')">
+                    Le prenom de l'étudiant ne peut avoir <strong>moins de 3 caractères</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <!-- <mat-form-field appearance="outline" class="col-md-4" formGroupName="filiereForm">
+            <mat-label>Filière</mat-label>
+            <mat-select formControlName="idFiliere">
+                <mat-option *ngFor="let filiere of filiereOptions" [value]="filiere.idFiliere">
+                    {{filiere.nomFiliere}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="etudiantForm.get('filiereForm')?.get('idFiliere')?.hasError('required')">
+                La filière est <strong>obligatoire</strong>
+            </mat-error>
+            </mat-form-field> -->
+
+            <mat-form-field class="col-md-8" formGroupName="degreForm" appearance="outline">
+            <mat-label>Degré</mat-label>
+            <mat-select formControlName="idDegre">
+                <mat-option *ngFor="let degre of degreOptions" [value]="degre.idDegre">
+                {{degre.classDegre}} {{degre.filiere.nomFiliere}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="etudiantForm.get('filiereForm')?.get('idFiliere')?.hasError('required')">
+                Le degré de l'étudiant est <strong>obligatoire</strong>
+            </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-md-4">
+            <mat-label>Date de naissance</mat-label>
+            <input formControlName="dateNaissanceEtudiant" matInput [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="etudiantForm.get('dateNaissanceEtudiant')?.hasError('required')">
+                Le date de naissance est <strong>obligatoire</strong>
+            </mat-error>
+            </mat-form-field>  
+
+            <mat-form-field appearance="outline" class="col-12" appearance="outline">
+            <mat-label>Petite Biographie</mat-label>
+            <textarea matInput formControlName="biographieEtudiant"></textarea>
+            <mat-error *ngIf="etudiantForm.get('biographieEtudiant')?.hasError('required')">
+                La biographie est <strong>obligatoire</strong>
+            </mat-error>
+            <mat-error *ngIf="etudiantForm.get('biographieEtudiant')?.hasError('minlength')">
+                La biographie doit avoir au moins <strong>5 caractères</strong>
+            </mat-error>
+            </mat-form-field>
+
+            <hr>
+
+            <button [disabled]="etudiantForm.invalid" class="w-100 my-4 btn btn-warning btn-lg" type="submit">Modifier l'etudiant</button>
+                    
+        </div>
+    </form>
+</div>
